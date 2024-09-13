@@ -1,8 +1,11 @@
 # game_engine.py
 
-from utils import colored_text, display_separator, term
+from utils import colored_text, display_separator
+#term
 from constants import TIME_CYCLE, TIME_ADVANCE_PER_ACTION, MAX_TIME
 import copy
+from blessed import Terminal
+term = Terminal()
 
 class GameEngine:
     def __init__(self, player, world):
@@ -27,7 +30,12 @@ class GameEngine:
             return description
 
     def display_screen(self):
-        with term.fullscreen(), term.cbreak():
+        print("Attempting to display game screen")
+        print(f"Terminal size: {term.height}x{term.width}")
+        print(f"Is terminal capable of fullscreen? {term.fullscreen()}")
+        try:
+            term.fullscreen()
+            term.cbreak()
             print(term.home + term.clear)
             # Top section
             print(colored_text(f"🌟 Adventure Game 🌟", term.cyan))
@@ -60,11 +68,16 @@ class GameEngine:
                 right_line = right_lines[i] if i < len(right_lines) else ''
                 print(left_line.ljust(left_width) + '|' + right_line.ljust(right_width))
 
-            # Messages area
             display_separator()
-            print(colored_text('Messages:', term.blue))
-            for msg in self.messages[-(term.height - max_lines - 10):]:  # Adjust number based on TUI size
-                print(msg)
+            print()
+
+            if self.messages:
+                print(colored_text(self.messages[-1], term.blue))
+            #for msg in self.messages[-(term.height - max_lines - 10):]:  # Adjust number based on TUI size
+            #    print(msg)
+            
+        except Exception as e:
+            print(f"Error in fullscreen mode: {str(e)}")
 
     def handle_action(self, action_response):
         action = action_response.get("action", "unknown_command")
@@ -199,4 +212,3 @@ class GameEngine:
         import time
         time.sleep(2)
         exit()
-

@@ -1,10 +1,12 @@
 # utils.py
 
-from colorama import Fore, Style
+from blessed import Terminal
+
+term = Terminal()
 
 def colored_text(text, color):
-    return f"{color}{text}{Style.RESET_ALL}"
+    return f"{color}{text}{term.normal}"
 
 def display_separator():
-    print(Fore.MAGENTA + "-" * 50)
+    print(term.magenta("-" * term.width))
 

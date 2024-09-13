@@ -1,10 +1,13 @@
 # llm_interface.py
 
-import openai
 import os
 import json
+from openai import OpenAI
 
-openai.api_key = os.getenv('OPENAI_API_KEY')
+# Initialize the OpenAI client
+client = OpenAI(
+    api_key=os.environ.get("OPENAI_API_KEY"),
+)
 
 def interpret_command(command, player, world, time_of_day):
     prompt = f"""
@@ -60,38 +63,29 @@ Respond with a JSON object in the format:
 - "world_updates": Any changes to the game world (e.g., new locations, items, NPCs).
 
 Examples:
-- If the player explores and discovers a hidden path:
+- If the player wants to move north:
 {{
-  "action": "explore",
-  "details": {{}},
-  "response": "While exploring, you discover a hidden path leading east.",
+  "action": "move",
+  "details": {{"direction": "north"}},
+  "response": "You head north along the winding path.",
   "state_changes": {{}},
-  "world_updates": {{
-    "new_exits": {{"east": "hidden_path"}},
-    "new_locations": {{
-      "hidden_path": {{
-        "description": "A narrow, winding path that seems seldom traveled.",
-        "exits": {{"west": "{player.location}"}},
-        "items": [],
-        "npcs": [],
-        "monsters": ["shadow_beast"]
-      }}
-    }}
-  }}
+  "world_updates": {{}}
 }}
 
 Now, interpret the player's command.
 """
+
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-4",
+        # Create a chat completion
+        response = client.chat.completions.create(
             messages=[
                 {"role": "system", "content": prompt}
             ],
+            model="chatgpt-4o-latest",
             temperature=0.7,
             max_tokens=500,
         )
-        assistant_message = response['choices'][0]['message']['content']
+        assistant_message = response.choices[0].message.content
         action_response = json.loads(assistant_message)
         return action_response
     except Exception as e:

@@ -7,6 +7,7 @@ from world import World
 from game_engine import GameEngine
 from llm_interface import interpret_command
 from utils import display_separator, colored_text
+import time
 
 def main():
     init(autoreset=True)
@@ -40,11 +41,16 @@ def main():
     player = Player(starting_location=starting_location)
     world = World(scenario_file)
     game_engine = GameEngine(player, world)
-
+    print("Loaded scenario: " + scenario_file)
+    print("Starting location: " + starting_location)
+    print("Type 'help' for a list of commands.")
     while True:
         try:
             game_engine.display_screen()
-            command = input().strip()
+            command = input().strip().lower()
+            if command == 'quit':
+                print("Thanks for playing!")
+                break
             time_of_day = game_engine.get_time_of_day()
             action_response = interpret_command(command, player, world, time_of_day)
             game_engine.handle_action(action_response)
@@ -53,8 +59,9 @@ def main():
             print("\nThanks for playing!")
             sys.exit()
         except Exception as e:
-            print("An unexpected error occurred.")
-            print(str(e))
+            print("An unexpected error occurred:")
+            import traceback
+            traceback.print_exc()
 
 if __name__ == "__main__":
     main()
