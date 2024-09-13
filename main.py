@@ -52,7 +52,7 @@ def main():
                 print("Thanks for playing!")
                 break
             time_of_day = game_engine.get_time_of_day()
-            action_response = interpret_command(command, player, world, time_of_day)
+            action_response = interpret_command(game_engine, command, player, world, time_of_day)
             game_engine.handle_action(action_response)
             game_engine.advance_time()
         except KeyboardInterrupt:

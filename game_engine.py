@@ -29,6 +29,10 @@ class GameEngine:
         else:
             return description
 
+    def get_recent_messages(self):
+        return self.messages[-10:]
+
+
     def display_screen(self):
         print("Attempting to display game screen")
         print(f"Terminal size: {term.height}x{term.width}")
@@ -80,130 +84,138 @@ class GameEngine:
             print(f"Error in fullscreen mode: {str(e)}")
 
     def handle_action(self, action_response):
-        action = action_response.get("action", "unknown_command")
-        details = action_response.get("details", {})
-        response = action_response.get("response", "")
-        state_changes = action_response.get("state_changes", {})
-        world_updates = action_response.get("world_updates", {})
+        try:
+            action = action_response.get("action", "unknown_command")
+            details = action_response.get("details", {})
+            response = action_response.get("response", "")
+            state_changes = action_response.get("state_changes", {})
+            world_updates = action_response.get("world_updates", {})
 
-        # Apply state changes
-        if 'health' in state_changes:
-            self.player.health += state_changes['health']
-            self.player.health = max(0, min(self.player.health, self.player.max_health))
-            if state_changes['health'] < 0:
-                self.messages.append(colored_text(f"You lost {-state_changes['health']} health.", term.red))
-            elif state_changes['health'] > 0:
-                self.messages.append(colored_text(f"You gained {state_changes['health']} health.", term.green))
-        if 'effects' in state_changes:
-            for effect in state_changes['effects']:
-                if effect not in self.player.effects:
-                    self.player.effects.append(effect)
-                    self.messages.append(colored_text(f"You are now affected by {effect}.", term.magenta))
-        if 'remove_effects' in state_changes:
-            for effect in state_changes['remove_effects']:
-                if effect in self.player.effects:
-                    self.player.effects.remove(effect)
-                    self.messages.append(colored_text(f"The effect {effect} has worn off.", term.magenta))
-        if 'notes' in state_changes:
-            self.world.notes.extend(state_changes['notes'])
+            # Apply state changes
+            if 'health' in state_changes:
+                self.player.health += state_changes['health']
+                self.player.health = max(0, min(self.player.health, self.player.max_health))
+                if state_changes['health'] < 0:
+                    self.messages.append(colored_text(f"You lost {-state_changes['health']} health.", term.red))
+                elif state_changes['health'] > 0:
+                    self.messages.append(colored_text(f"You gained {state_changes['health']} health.", term.green))
+            if 'effects' in state_changes:
+                for effect in state_changes['effects']:
+                    if effect not in self.player.effects:
+                        self.player.effects.append(effect)
+                        self.messages.append(colored_text(f"You are now affected by {effect}.", term.magenta))
+            if 'remove_effects' in state_changes:
+                for effect in state_changes['remove_effects']:
+                    if effect in self.player.effects:
+                        self.player.effects.remove(effect)
+                        self.messages.append(colored_text(f"The effect {effect} has worn off.", term.magenta))
+            if 'notes' in state_changes:
+                self.world.notes.extend(state_changes['notes'])
 
-        # Apply world updates
-        if world_updates:
-            self.world.update_world(world_updates, self.player.location)
-            self.messages.append(colored_text("The world around you seems to change...", term.magenta))
+            # Apply world updates
+            if world_updates:
+                self.world.update_world(world_updates, self.player.location)
+                self.messages.append(colored_text("The world around you seems to change...", term.magenta))
 
-        # Handle action
-        if response:
-            self.messages.append(response)
+            # Handle action
+            if response:
+                self.messages.append(response)
 
-        if action == "move":
-            direction = details.get("direction")
-            loc = self.world.get_location(self.player.location)
-            if direction in loc["exits"]:
-                self.player.location = loc["exits"][direction]
-                # Optionally, you can provide a description of the new location
-                new_loc = self.world.get_location(self.player.location)
-                new_description = self.modify_description(new_loc['description'])
-                self.messages.append(colored_text(new_description.strip(), term.green))
-            else:
-                self.messages.append(colored_text("You can't go that way.", term.yellow))
-        elif action == "attack":
-            monster = details.get("monster")
-            loc = self.world.get_location(self.player.location)
-            if monster in loc["monsters"]:
-                # Simple combat simulation
-                loc["monsters"].remove(monster)
-                self.player.experience += 50  # Example experience gain
-                self.messages.append(colored_text(f"You have defeated the {monster}!", term.green))
-                # Optionally, you can check for level up
-            else:
-                self.messages.append(colored_text(f"There is no {monster} here.", term.yellow))
-        elif action == "take":
-            item = details.get("item")
-            loc = self.world.get_location(self.player.location)
-            if item in loc["items"]:
-                loc["items"].remove(item)
-                self.player.inventory.append(item)
-                self.messages.append(colored_text(f"You have taken the {item}.", term.green))
-            else:
-                self.messages.append(colored_text(f"There is no {item} here.", term.yellow))
-        elif action == "drop":
-            item = details.get("item")
-            if item in self.player.inventory:
-                self.player.inventory.remove(item)
+            if action == "move":
+                direction = details.get("direction")
                 loc = self.world.get_location(self.player.location)
-                loc["items"].append(item)
-                self.messages.append(colored_text(f"You have dropped the {item}.", term.green))
-            else:
-                self.messages.append(colored_text(f"You don't have {item}.", term.yellow))
-        elif action == "use":
-            item = details.get("item")
-            if item in self.player.inventory:
-                # Implement item usage effects
-                if item == "ale":
-                    if "Drunk" not in self.player.effects:
-                        self.player.effects.append("Drunk")
-                        self.messages.append(colored_text("You drink the ale and feel a bit tipsy.", term.magenta))
-                    else:
-                        self.messages.append(colored_text("You're already drunk.", term.yellow))
+                if direction in loc["exits"]:
+                    self.player.location = loc["exits"][direction]
+                    # Optionally, you can provide a description of the new location
+                    new_loc = self.world.get_location(self.player.location)
+                    new_description = self.modify_description(new_loc['description'])
+                    self.messages.append(colored_text(new_description.strip(), term.green))
                 else:
-                    self.messages.append(response)
+                    self.messages.append(colored_text("You can't go that way.", term.yellow))
+            elif action == "attack":
+                monster = details.get("monster")
+                loc = self.world.get_location(self.player.location)
+                if monster in loc["monsters"]:
+                    # Simple combat simulation
+                    loc["monsters"].remove(monster)
+                    self.player.experience += 50  # Example experience gain
+                    self.messages.append(colored_text(f"You have defeated the {monster}!", term.green))
+                    # Optionally, you can check for level up
+                else:
+                    self.messages.append(colored_text(f"There is no {monster} here.", term.yellow))
+            elif action == "take":
+                item = details.get("item")
+                loc = self.world.get_location(self.player.location)
+                if item in loc["items"]:
+                    loc["items"].remove(item)
+                    self.player.inventory.append(item)
+                    self.messages.append(colored_text(f"You have taken the {item}.", term.green))
+                else:
+                    self.messages.append(colored_text(f"There is no {item} here.", term.yellow))
+            elif action == "drop":
+                item = details.get("item")
+                if item in self.player.inventory:
+                    self.player.inventory.remove(item)
+                    loc = self.world.get_location(self.player.location)
+                    loc["items"].append(item)
+                    self.messages.append(colored_text(f"You have dropped the {item}.", term.green))
+                else:
+                    self.messages.append(colored_text(f"You don't have {item}.", term.yellow))
+            elif action == "use":
+                item = details.get("item")
+                if item in self.player.inventory:
+                    # Implement item usage effects
+                    if item == "ale":
+                        if "Drunk" not in self.player.effects:
+                            self.player.effects.append("Drunk")
+                            self.messages.append(colored_text("You drink the ale and feel a bit tipsy.", term.magenta))
+                        else:
+                            self.messages.append(colored_text("You're already drunk.", term.yellow))
+                    else:
+                        self.messages.append(response)
+                else:
+                    self.messages.append(colored_text(f"You don't have {item}.", term.yellow))
+            elif action == "inventory":
+                self.messages.append(colored_text(self.player.display_inventory(), term.cyan))
+            elif action == "stats":
+                self.messages.append(colored_text(self.player.display_stats(), term.cyan))
+            elif action == "effects":
+                effects = ', '.join(self.player.effects) if self.player.effects else 'None'
+                self.messages.append(colored_text(f"Current Effects: {effects}", term.cyan))
+            elif action == "other":
+                pass
+            elif action == "look":
+                loc = self.world.get_location(self.player.location)
+                description = self.modify_description(loc['description'])
+                self.messages.append(colored_text(description.strip(), term.green))
+                if loc["items"]:
+                    self.messages.append(colored_text("You see the following items:", term.yellow))
+                    self.messages.append("- " + "\n- ".join(loc["items"]))
+                if loc["monsters"]:
+                    self.messages.append(colored_text("Danger! Monsters present:", term.red))
+                    self.messages.append("- " + "\n- ".join(loc["monsters"]))
+                if loc["npcs"]:
+                    self.messages.append(colored_text("You see the following people:", term.blue))
+                    self.messages.append("- " + "\n- ".join(loc["npcs"]))
+            elif action == "explore" or action == "examine":
+                # Exploration and examination are handled via the response from the LLM
+                pass
+            elif action == "unknown_command":
+                print("Action was unknown command!!!!!!!")
+                self.messages.append(colored_text("I don't understand that command.", term.yellow))
             else:
-                self.messages.append(colored_text(f"You don't have {item}.", term.yellow))
-        elif action == "inventory":
-            self.messages.append(colored_text(self.player.display_inventory(), term.cyan))
-        elif action == "stats":
-            self.messages.append(colored_text(self.player.display_stats(), term.cyan))
-        elif action == "effects":
-            effects = ', '.join(self.player.effects) if self.player.effects else 'None'
-            self.messages.append(colored_text(f"Current Effects: {effects}", term.cyan))
-        elif action == "look":
-            loc = self.world.get_location(self.player.location)
-            description = self.modify_description(loc['description'])
-            self.messages.append(colored_text(description.strip(), term.green))
-            if loc["items"]:
-                self.messages.append(colored_text("You see the following items:", term.yellow))
-                self.messages.append("- " + "\n- ".join(loc["items"]))
-            if loc["monsters"]:
-                self.messages.append(colored_text("Danger! Monsters present:", term.red))
-                self.messages.append("- " + "\n- ".join(loc["monsters"]))
-            if loc["npcs"]:
-                self.messages.append(colored_text("You see the following people:", term.blue))
-                self.messages.append("- " + "\n- ".join(loc["npcs"]))
-        elif action == "explore" or action == "examine":
-            # Exploration and examination are handled via the response from the LLM
-            pass
-        elif action == "unknown_command":
-            self.messages.append(colored_text("I don't understand that command.", term.yellow))
-        else:
-            self.messages.append(colored_text("I don't understand that action.", term.yellow))
+                self.messages.append(colored_text("I don't understand that action.", term.yellow))
 
-        # Check for player death
-        if self.player.health <= 0:
-            self.messages.append(colored_text("You have perished...", term.red))
-            # Optionally handle game over logic
-            # For now, we'll exit the game
-            self.game_over()
+            # Check for player death
+            if self.player.health <= 0:
+                self.messages.append(colored_text("You have perished...", term.red))
+                # Optionally handle game over logic
+                # For now, we'll exit the game
+                self.game_over()
+        except Exception as e:
+            import traceback
+            traceback.print_exc()
+            self.messages.append(colored_text(f"An error occurred: {str(e)}", term.red))
 
     def game_over(self):
         self.messages.append(colored_text("Game Over", term.red))
