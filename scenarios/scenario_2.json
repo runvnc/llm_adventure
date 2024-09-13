@@ -1,0 +1,225 @@
+{
+  "locations": {
+    "ravenswood_entrance": {
+      "description": "You stand at the entrance of Ravenswood. The iron gates creak in the wind, and an unsettling silence permeates the air. The main street leads deeper into the town.",
+      "exits": {
+        "south": "old_road",
+        "north": "main_street"
+      },
+      "items": [],
+      "npcs": ["town_guard"],
+      "monsters": []
+    },
+    "old_road": {
+      "description": "The road back to civilization stretches southward. Overgrown weeds and abandoned carts suggest that few have traveled this way recently.",
+      "exits": {
+        "north": "ravenswood_entrance"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": []
+    },
+    "main_street": {
+      "description": "Shops and houses line the deserted main street. Windows are boarded up, and shadows seem to move in the corners of your vision.",
+      "exits": {
+        "south": "ravenswood_entrance",
+        "east": "abandoned_inn",
+        "west": "town_square",
+        "north": "haunted_chapel"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["shadow_wraith"]
+    },
+    "abandoned_inn": {
+      "description": "The inn's sign hangs precariously, swinging slowly despite the lack of wind. Inside, the smell of decay mixes with faint whispers.",
+      "exits": {
+        "west": "main_street",
+        "up": "inn_attic",
+        "down": "hidden_cellar"
+      },
+      "items": ["tattered_journal"],
+      "npcs": [],
+      "monsters": ["restless_spirit"]
+    },
+    "inn_attic": {
+      "description": "Dust and cobwebs cover the attic. Moonlight filters through broken shingles, casting eerie patterns on the floor.",
+      "exits": {
+        "down": "abandoned_inn"
+      },
+      "items": ["silver_key"],
+      "npcs": [],
+      "monsters": []
+    },
+    "hidden_cellar": {
+      "description": "A secret cellar beneath the inn. Old barrels and crates are scattered around, and a cold draft hints at another exit.",
+      "exits": {
+        "up": "abandoned_inn",
+        "east": "underground_tunnel"
+      },
+      "items": ["ancient_relic"],
+      "npcs": [],
+      "monsters": ["crawling_horror"]
+    },
+    "underground_tunnel": {
+      "description": "A damp, narrow tunnel that seems to stretch endlessly. The walls are covered in strange markings.",
+      "exits": {
+        "west": "hidden_cellar",
+        "east": "crypt_entrance"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["giant_rat"]
+    },
+    "crypt_entrance": {
+      "description": "An ominous stone doorway stands before you, leading into the crypts beneath Ravenswood.",
+      "exits": {
+        "west": "underground_tunnel",
+        "down": "ancient_crypt"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["skeletal_guardian"]
+    },
+    "ancient_crypt": {
+      "description": "The crypt is filled with tombs and the air is thick with the scent of decay. Shadows flicker in the corners.",
+      "exits": {
+        "up": "crypt_entrance",
+        "north": "forgotten_chamber"
+      },
+      "items": ["cursed_dagger"],
+      "npcs": [],
+      "monsters": ["undead_warrior"]
+    },
+    "forgotten_chamber": {
+      "description": "An ancient chamber hidden deep within the crypt. Strange symbols adorn the walls, and a dark presence can be felt.",
+      "exits": {
+        "south": "ancient_crypt"
+      },
+      "items": ["book_of_shadows"],
+      "npcs": [],
+      "monsters": ["ancient_lich"]
+    },
+    "town_square": {
+      "description": "The once-vibrant town square is now empty. A statue of the town's founder stands in the center, but its eyes seem to follow you.",
+      "exits": {
+        "east": "main_street",
+        "north": "ravenswood_manor",
+        "west": "old_library",
+        "south": "cemetery"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["shadow_wraith"]
+    },
+    "old_library": {
+      "description": "The library is filled with dusty books and cobwebs. Perhaps some clues can be found among the ancient texts.",
+      "exits": {
+        "east": "town_square"
+      },
+      "items": ["occult_tome"],
+      "npcs": ["librarian_ghost"],
+      "monsters": []
+    },
+    "cemetery": {
+      "description": "Gravestones jut out of the mist like jagged teeth. The silence here is oppressive, and you feel like you're being watched.",
+      "exits": {
+        "north": "town_square",
+        "west": "mausoleum"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["restless_undead"]
+    },
+    "mausoleum": {
+      "description": "An old mausoleum stands at the edge of the cemetery. Its door is ajar, darkness beckoning within.",
+      "exits": {
+        "east": "cemetery",
+        "down": "hidden_catacombs"
+      },
+      "items": ["ancient_key"],
+      "npcs": [],
+      "monsters": ["crypt_keeper"]
+    },
+    "hidden_catacombs": {
+      "description": "The catacombs stretch beneath the town, filled with the remains of those long forgotten.",
+      "exits": {
+        "up": "mausoleum",
+        "south": "underground_lake"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["ghoul"]
+    },
+    "underground_lake": {
+      "description": "A vast underground lake blocks your path. The water is black and still, and a narrow ledge skirts the edge.",
+      "exits": {
+        "north": "hidden_catacombs",
+        "east": "hidden_cavern"
+      },
+      "items": ["boat"],
+      "npcs": [],
+      "monsters": ["water_serpent"]
+    },
+    "hidden_cavern": {
+      "description": "A cavern hidden beyond the lake. Strange crystals illuminate the space with an eerie glow.",
+      "exits": {
+        "west": "underground_lake",
+        "up": "ravenswood_manor"
+      },
+      "items": ["crystal_fragment"],
+      "npcs": [],
+      "monsters": []
+    },
+    "ravenswood_manor": {
+      "description": "Ravenswood Manor looms ahead, its gothic architecture both grand and foreboding. This is the heart of the town's mystery.",
+      "exits": {
+        "south": "town_square",
+        "down": "hidden_cavern",
+        "north": "forbidden_tower"
+      },
+      "items": [],
+      "npcs": ["lady_evangeline", "butler"],
+      "monsters": []
+    },
+    "forbidden_tower": {
+      "description": "The tower reaches into the dark sky. It's said to be the source of the town's curse.",
+      "exits": {
+        "south": "ravenswood_manor"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["dark_apparition"]
+    },
+    "haunted_chapel": {
+      "description": "An old chapel stands here, its windows shattered and doors hanging off their hinges. A feeling of despair hangs in the air.",
+      "exits": {
+        "south": "main_street",
+        "east": "old_lighthouse"
+      },
+      "items": [],
+      "npcs": ["priest_ghost"],
+      "monsters": ["vengeful_spirit"]
+    },
+    "old_lighthouse": {
+      "description": "Perched on a cliff overlooking the sea, the lighthouse no longer shines. Waves crash violently below.",
+      "exits": {
+        "west": "haunted_chapel",
+        "down": "rocky_shore"
+      },
+      "items": ["signal_flare"],
+      "npcs": [],
+      "monsters": ["phantom_sailor"]
+    },
+    "rocky_shore": {
+      "description": "The rocky shore is treacherous. Shipwrecks litter the coast, and the cries of gulls echo hauntingly.",
+      "exits": {
+        "up": "old_lighthouse"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["sea_specter"]
+    }
+  }
+}
+

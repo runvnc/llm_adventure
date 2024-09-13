@@ -1,0 +1,162 @@
+{
+  "locations": {
+    "airship_docks": {
+      "description": "Your airship docks at the bustling port of Aetherion. The hum of machinery and the scent of oil fill the air. Elevated walkways connect various parts of the city.",
+      "exits": {
+        "north": "central_plaza",
+        "south": "airship_albatross",
+        "east": "sky_docks"
+      },
+      "items": [],
+      "npcs": ["dock_master", "steam_mechanic"],
+      "monsters": []
+    },
+    "airship_albatross": {
+      "description": "Your personal airship, the Albatross, is a marvel of engineering. It's equipped with the latest technology and ready for adventure.",
+      "exits": {
+        "north": "airship_docks"
+      },
+      "items": ["toolkit", "navigation_charts"],
+      "npcs": [],
+      "monsters": []
+    },
+    "central_plaza": {
+      "description": "The heart of Aetherion, the Central Plaza, is adorned with grand statues and clockwork fountains. Inventors and citizens alike gather here.",
+      "exits": {
+        "south": "airship_docks",
+        "east": "grand_exposition",
+        "west": "steamworks",
+        "north": "clock_tower"
+      },
+      "items": [],
+      "npcs": ["city_guard", "street_vendor"],
+      "monsters": []
+    },
+    "grand_exposition": {
+      "description": "The Grand Exposition showcases the latest inventions and discoveries. The atmosphere buzzes with excitement and the clatter of machinery.",
+      "exits": {
+        "west": "central_plaza",
+        "north": "observatory",
+        "east": "alchemists_lab"
+      },
+      "items": [],
+      "npcs": ["professor_quintus", "rival_inventor", "curious_spectator"],
+      "monsters": []
+    },
+    "observatory": {
+      "description": "Perched atop Aetherion, the Observatory offers a breathtaking view of the skies. Complex instruments track celestial bodies and weather patterns.",
+      "exits": {
+        "south": "grand_exposition",
+        "up": "astronomers_quarters"
+      },
+      "items": ["star_chart"],
+      "npcs": ["astronomer_elara"],
+      "monsters": []
+    },
+    "astronomers_quarters": {
+      "description": "Living quarters for the astronomers. Charts and notes are scattered about, revealing celestial secrets.",
+      "exits": {
+        "down": "observatory"
+      },
+      "items": ["astronomers_journal"],
+      "npcs": [],
+      "monsters": []
+    },
+    "steamworks": {
+      "description": "The Steamworks is the industrial backbone of Aetherion. Gears turn and pistons pump, powering the city's many mechanisms.",
+      "exits": {
+        "east": "central_plaza",
+        "north": "engine_room",
+        "west": "subterranean_vault"
+      },
+      "items": [],
+      "npcs": ["chief_engineer"],
+      "monsters": ["rogue_automaton"]
+    },
+    "engine_room": {
+      "description": "Deep within the Steamworks lies the Engine Room, where the city's main power source hums with energy. It's a restricted area, but secrets lie within.",
+      "exits": {
+        "south": "steamworks"
+      },
+      "items": ["access_card"],
+      "npcs": [],
+      "monsters": ["security_droid"]
+    },
+    "subterranean_vault": {
+      "description": "A hidden vault beneath the city, rumored to house advanced technologies and forbidden inventions.",
+      "exits": {
+        "east": "steamworks",
+        "down": "ancient_core"
+      },
+      "items": ["prototype_device"],
+      "npcs": [],
+      "monsters": ["mechanical_guardian"]
+    },
+    "ancient_core": {
+      "description": "The core of Aetherion's power, pulsating with energy. Strange inscriptions hint at an older civilization.",
+      "exits": {
+        "up": "subterranean_vault"
+      },
+      "items": ["core_fragment"],
+      "npcs": [],
+      "monsters": ["ancient_sentinel"]
+    },
+    "clock_tower": {
+      "description": "The Clock Tower stands tall, its gears visible through glass panels. It regulates the city's time and coordinates various mechanisms.",
+      "exits": {
+        "south": "central_plaza",
+        "up": "clock_mechanism"
+      },
+      "items": [],
+      "npcs": ["timekeeper"],
+      "monsters": []
+    },
+    "clock_mechanism": {
+      "description": "Among the intricate gears and cogs of the clock mechanism. One wrong move could disrupt the city's operations.",
+      "exits": {
+        "down": "clock_tower"
+      },
+      "items": ["gear_component"],
+      "npcs": [],
+      "monsters": ["malfunctioning_automaton"]
+    },
+    "alchemists_lab": {
+      "description": "A laboratory filled with bubbling concoctions and exotic ingredients. The air is thick with strange fumes.",
+      "exits": {
+        "west": "grand_exposition",
+        "north": "sky_gardens"
+      },
+      "items": ["alchemy_kit"],
+      "npcs": ["alchemist_zara"],
+      "monsters": []
+    },
+    "sky_gardens": {
+      "description": "Floating gardens with exotic plants and flowers. It's a tranquil escape from the city's industrial environment.",
+      "exits": {
+        "south": "alchemists_lab"
+      },
+      "items": ["rare_herb"],
+      "npcs": [],
+      "monsters": []
+    },
+    "sky_docks": {
+      "description": "A secondary docking area for airships. Sky pirates have been spotted here recently.",
+      "exits": {
+        "west": "airship_docks"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["sky_pirate"]
+    },
+    "rival_inventor's_lab": {
+      "description": "The private lab of your rival, filled with mysterious devices. Something about it seems off.",
+      "exits": {
+        "east": "grand_exposition"
+      },
+      "items": ["encrypted_blueprints"],
+      "npcs": ["rival_inventor"],
+      "monsters": []
+    }
+  }
+}
+

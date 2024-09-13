@@ -1,0 +1,26 @@
+{
+  "locations": {
+    "village": {
+      "description": "You are in a small village. There's a path to the north.",
+      "exits": {"north": "forest"},
+      "items": ["torch"],
+      "npcs": [],
+      "monsters": []
+    },
+    "forest": {
+      "description": "You are in a dense forest. The village is to the south.",
+      "exits": {"south": "village", "east": "cave"},
+      "items": [],
+      "npcs": [],
+      "monsters": ["goblin"]
+    },
+    "cave": {
+      "description": "You stand before a shadowy cave entrance.",
+      "exits": {"west": "forest"},
+      "items": ["sword"],
+      "npcs": [],
+      "monsters": ["troll"]
+    }
+  }
+}
+

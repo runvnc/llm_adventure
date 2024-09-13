@@ -1,0 +1,214 @@
+{
+  "locations": {
+    "village_square": {
+      "description": "You stand in the bustling village square of Hearthvale. Merchants shout their wares, children play, and a sense of normalcy fills the air. To the north lies a dense forest, while a winding road stretches east toward the capital.",
+      "exits": {
+        "north": "whispering_forest",
+        "east": "kings_road",
+        "west": "village_inn",
+        "south": "blacksmith_shop"
+      },
+      "items": ["old_map"],
+      "npcs": ["mysterious_elder", "village_blacksmith"],
+      "monsters": []
+    },
+    "village_inn": {
+      "description": "The Hearthvale Inn is warm and inviting. The scent of stew fills the air, and travelers share stories by the hearth.",
+      "exits": {
+        "east": "village_square",
+        "up": "inn_rooms"
+      },
+      "items": [],
+      "npcs": ["innkeeper", "traveling_bard"],
+      "monsters": []
+    },
+    "inn_rooms": {
+      "description": "Upstairs, modest rooms are available for travelers needing rest. The hallway is quiet, with only the creaking of floorboards.",
+      "exits": {
+        "down": "village_inn"
+      },
+      "items": ["key_to_room_2"],
+      "npcs": [],
+      "monsters": []
+    },
+    "blacksmith_shop": {
+      "description": "The clang of metal on metal rings out as the blacksmith works tirelessly. Weapons and armor line the walls.",
+      "exits": {
+        "north": "village_square"
+      },
+      "items": ["iron_sword", "leather_armor"],
+      "npcs": ["village_blacksmith"],
+      "monsters": []
+    },
+    "whispering_forest": {
+      "description": "Tall trees tower above you, their leaves whispering secrets with every gust of wind. The forest is alive with the sounds of nature, but an eerie feeling lingers.",
+      "exits": {
+        "south": "village_square",
+        "north": "ancient_ruins",
+        "east": "hidden_grove",
+        "west": "river_bank"
+      },
+      "items": ["herbs"],
+      "npcs": ["forest_hermit"],
+      "monsters": ["forest_sprite", "wild_boar"]
+    },
+    "hidden_grove": {
+      "description": "A serene grove hidden within the forest. Rays of sunlight filter through the leaves, illuminating a tranquil pond.",
+      "exits": {
+        "west": "whispering_forest"
+      },
+      "items": ["mystic_flower"],
+      "npcs": [],
+      "monsters": ["nymph"]
+    },
+    "river_bank": {
+      "description": "The river flows gently, its waters clear and cool. A rickety bridge crosses to the other side.",
+      "exits": {
+        "east": "whispering_forest",
+        "west": "old_mill"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["giant_crab"]
+    },
+    "old_mill": {
+      "description": "An abandoned mill stands here, its wheel still turning slowly. It's rumored to be haunted.",
+      "exits": {
+        "east": "river_bank"
+      },
+      "items": ["silver_coin"],
+      "npcs": [],
+      "monsters": ["ghost"]
+    },
+    "ancient_ruins": {
+      "description": "You arrive at ancient ruins overgrown with vines and moss. Crumbling stone structures hint at a forgotten civilization.",
+      "exits": {
+        "south": "whispering_forest",
+        "down": "hidden_chamber"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["shadow_guardian"]
+    },
+    "hidden_chamber": {
+      "description": "A secret chamber beneath the ruins. The walls are adorned with mysterious symbols that glow faintly.",
+      "exits": {
+        "up": "ancient_ruins",
+        "east": "underground_tunnel"
+      },
+      "items": ["mysterious_amulet", "ancient_scroll"],
+      "npcs": [],
+      "monsters": []
+    },
+    "underground_tunnel": {
+      "description": "A narrow tunnel stretches into darkness. The air is damp and the sound of dripping water echoes.",
+      "exits": {
+        "west": "hidden_chamber",
+        "east": "secret_exit"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": ["giant_rat"]
+    },
+    "secret_exit": {
+      "description": "You emerge from the tunnel into a secluded area near the capital city.",
+      "exits": {
+        "west": "underground_tunnel",
+        "east": "capital_city"
+      },
+      "items": [],
+      "npcs": [],
+      "monsters": []
+    },
+    "kings_road": {
+      "description": "The cobblestone road leads toward the grandeur of Eldoria's capital. Travelers and traders pass by, sharing stories of the realm.",
+      "exits": {
+        "west": "village_square",
+        "east": "eldoria_gates",
+        "south": "abandoned_outpost"
+      },
+      "items": [],
+      "npcs": ["wandering_merchant"],
+      "monsters": ["bandit"]
+    },
+    "abandoned_outpost": {
+      "description": "An old outpost that once guarded the road. It's now overrun by bandits.",
+      "exits": {
+        "north": "kings_road"
+      },
+      "items": ["rusty_shield"],
+      "npcs": [],
+      "monsters": ["bandit_leader"]
+    },
+    "eldoria_gates": {
+      "description": "The towering gates of Eldoria stand before you, adorned with intricate carvings and guarded by vigilant soldiers.",
+      "exits": {
+        "west": "kings_road",
+        "east": "capital_city"
+      },
+      "items": [],
+      "npcs": ["gate_guard"],
+      "monsters": []
+    },
+    "capital_city": {
+      "description": "The capital city bustles with activity. Majestic buildings line the streets, and the royal palace looms in the distance.",
+      "exits": {
+        "west": "eldoria_gates",
+        "north": "royal_palace",
+        "east": "mages_guild",
+        "south": "market_district"
+      },
+      "items": [],
+      "npcs": ["royal_guard", "court_magician"],
+      "monsters": []
+    },
+    "royal_palace": {
+      "description": "The opulent royal palace is a marvel of architecture and artistry. Intrigue and power struggles simmer beneath the surface.",
+      "exits": {
+        "south": "capital_city",
+        "east": "palace_gardens"
+      },
+      "items": [],
+      "npcs": ["king_reginald", "royal_advisor"],
+      "monsters": []
+    },
+    "palace_gardens": {
+      "description": "Beautiful gardens with exotic plants and statues. A place of tranquility amidst the bustling palace.",
+      "exits": {
+        "west": "royal_palace"
+      },
+      "items": ["golden_apple"],
+      "npcs": ["princess_elara"],
+      "monsters": []
+    },
+    "mages_guild": {
+      "description": "A towering spire where the realm's most powerful mages study and practice their arts.",
+      "exits": {
+        "west": "capital_city",
+        "up": "arcane_library"
+      },
+      "items": ["spellbook"],
+      "npcs": ["archmage"],
+      "monsters": []
+    },
+    "arcane_library": {
+      "description": "Rows upon rows of ancient tomes and scrolls. Knowledge from ages past resides here.",
+      "exits": {
+        "down": "mages_guild"
+      },
+      "items": ["book_of_spells"],
+      "npcs": [],
+      "monsters": []
+    },
+    "market_district": {
+      "description": "A lively marketplace filled with vendors selling all manner of goods. The air is filled with the scents of spices and the sounds of haggling.",
+      "exits": {
+        "north": "capital_city"
+      },
+      "items": [],
+      "npcs": ["merchant", "street_performer"],
+      "monsters": []
+    }
+  }
+}
+
